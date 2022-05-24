@@ -1,10 +1,9 @@
 <?php
 
-require '../vendor/autoload.php';
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "321321";
 $database = "freeDomain";
 
 $conn = new mysqli($servername, $username, $password, $database);
@@ -19,35 +18,32 @@ if ($conn->connect_error) {
 
         while ($row = $result->fetch_assoc()) {
 
-            $url = 'https://azaronline.com/api/whois/?domain=' . (string)$row['name'];
+            $domain = $row['name'];
+            $status = '1';
+            $subDomain = explode('.' , $domain);
 
-            try {
-                $client = new GuzzleHttp\Client();
-                $res = $client->request('GET', $url);
-                $result = $res->getBody();
-                $result = json_decode($result, true);
-
-                if (isset($result) && $result[0]['status'] == 'available') {
-
-                    $sql2 = 'UPDATE domains SET status=2,date=current_timestamp WHERE id=' . (string)$row['id'];
-                    $result2 = mysqli_query($conn, $sql2);
-                } elseif (isset($result) && $result[0]['status'] == 'unAvailable') {
-
-                    $sql2 = 'UPDATE domains SET status=1,date=current_timestamp WHERE id=' . (string)$row['id'];
-                    $result2 = mysqli_query($conn, $sql2);
-                }
-            } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-                echo $e;
+            if($subDomain[1] == "ir"){
+                $status = shell_exec('whois ' . $domain . ' | grep "person"');
+            }elseif ($subDomain[1] == "com"){
+                $status = shell_exec('whois ' . $domain . ' | grep "Expiry Date"');
+            }else{
+                continue;
             }
 
+            if($status == null){
+                $sql = 'UPDATE domains SET status=2,date=current_timestamp WHERE id=' . (string)$row['id'];
+                $result = mysqli_query($conn, $sql);
+            }else{
+                $sql = 'UPDATE domains SET status=1,date=current_timestamp WHERE id=' . (string)$row['id'];
+                $result = mysqli_query($conn, $sql);
+            }
         }
 
     } else {
         echo "0 results";
     }
-
 }
 
 $conn->close();
-return "ok";
+
 ?>

@@ -1,7 +1,5 @@
 {
     "require": {
-        "guzzlehttp/guzzle": "^7.0",
         "morilog/jalali": "^3.2"
-
     }
 }

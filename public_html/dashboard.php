@@ -3,7 +3,7 @@ require '../vendor/autoload.php';
 date_default_timezone_set('Asia/Tehran');
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "321321";
 $database = "freeDomain";
 
 $conn = new mysqli($servername, $username, $password, $database);
