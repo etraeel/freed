@@ -23,7 +23,7 @@ if ($conn->connect_error) {
             $subDomain = explode('.' , $domain);
 
             if($subDomain[1] == "ir"){
-                $status = shell_exec('whois ' . $domain . ' | grep "person"');
+                $status = shell_exec('whois ' . $domain . ' | grep "domain"');
             }elseif ($subDomain[1] == "com"){
                 $status = shell_exec('whois ' . $domain . ' | grep "Expiry Date"');
             }else{
