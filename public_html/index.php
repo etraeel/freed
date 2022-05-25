@@ -6,10 +6,11 @@ $username = "root";
 $password = "123456";
 $database = "freeDomain";
 
-$network = shell_exec('curl -I http://google.com');
-if ($network == null)
-    var_dump("network is not connected!!");die();
-
+$network = shell_exec("curl -I http://google.com");
+if ($network == null) {
+    var_dump("network is not connected!!");
+    die();
+}
 
 $conn = new mysqli($servername, $username, $password, $database);
 
