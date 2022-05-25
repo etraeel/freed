@@ -28,6 +28,7 @@ if ($conn->connect_error) {
                 $status = shell_exec('whois ' . $domain . ' | grep "Expiry Date"');
             }
 
+            
             if($status == null){
                 $sql = 'UPDATE domains SET status=2,date=current_timestamp WHERE id=' . (string)$row['id'];
                 $result = mysqli_query($conn, $sql);
