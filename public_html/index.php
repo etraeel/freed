@@ -6,6 +6,11 @@ $username = "root";
 $password = "123456";
 $database = "freeDomain";
 
+$network = shell_exec('curl -I http://google.com');
+if ($network == null)
+    var_dump("network is not connected!!");die();
+
+
 $conn = new mysqli($servername, $username, $password, $database);
 
 if ($conn->connect_error) {
@@ -28,7 +33,7 @@ if ($conn->connect_error) {
                 $status = shell_exec('whois ' . $domain . ' | grep "Expiry Date"');
             }
 
-            
+
             if($status == null){
                 $sql = 'UPDATE domains SET status=2,date=current_timestamp WHERE id=' . (string)$row['id'];
                 $result = mysqli_query($conn, $sql);
