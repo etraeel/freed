@@ -3,7 +3,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "321321";
+$password = "123456";
 $database = "freeDomain";
 
 $conn = new mysqli($servername, $username, $password, $database);
@@ -24,10 +24,8 @@ if ($conn->connect_error) {
 
             if($subDomain[1] == "ir"){
                 $status = shell_exec('whois ' . $domain . ' | grep "domain"');
-            }elseif ($subDomain[1] == "com"){
+            }else {
                 $status = shell_exec('whois ' . $domain . ' | grep "Expiry Date"');
-            }else{
-                continue;
             }
 
             if($status == null){
