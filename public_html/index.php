@@ -29,13 +29,13 @@ if ($conn->connect_error) {
             $subDomain = explode('.' , $domain);
 
             if($subDomain[1] == "ir"){
-                $commandResult = shell_exec('whois ' . $domain . ' | grep "No entries found in the selected source"');
+                $commandResult = shell_exec('whois ' . strtolower($domain) . ' | grep "No entries found in the selected source"');
             }else {
-                $commandResult = shell_exec('whois ' . $domain . ' | grep "No match for domain"');
+                $commandResult = shell_exec('whois ' . strtolower($domain) . ' | grep "No match for domain"');
             }
             $status = strpos($commandResult , "No" );
 
-            if(is_int($status)){
+            if(is_int($status) && $commandResult != null){
                 $sql = 'UPDATE domains SET status=2,date=current_timestamp WHERE id=' . (string)$row['id'];
                 $result = mysqli_query($conn, $sql);
             }else{
