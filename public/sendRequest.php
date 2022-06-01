@@ -3,7 +3,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "123456";
+$password = "321321";
 $database = "freeDomain";
 
 $network = shell_exec("curl -I http://google.com");
@@ -52,3 +52,4 @@ if ($conn->connect_error) {
 $conn->close();
 
 ?>
+
