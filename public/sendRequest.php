@@ -19,10 +19,10 @@ if ($conn->connect_error) {
 } else {
 
     $sql = 'SELECT * FROM `domains` ORDER BY `date` ASC LIMIT 1';
-    $result = $conn->query($sql);
+    $result = $conn->query($sql) or die($conn->error);
     if ($result->num_rows > 0) {
 
-        while ($row = $result->fetch_assoc()) {
+        if ($row = $result->fetch_assoc()) {
 
             $domain = $row['name'];
             $status = '1';
@@ -48,7 +48,7 @@ if ($conn->connect_error) {
         echo "0 results";
     }
 }
-
+echo "ok";
 $conn->close();
 
 ?>
