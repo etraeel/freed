@@ -21,7 +21,7 @@ if ($conn->connect_error) {
 if($_POST && isset($_POST['id'])){
     $sql2 = 'DELETE FROM domains WHERE id=' . (string)$_POST['id'];
     $result2 = mysqli_query($conn, $sql2);
-    header("Refresh:0; url=dashboard.php");
+    header("Refresh:0; url=/");
 }
 
 
@@ -33,7 +33,7 @@ if($_POST && isset($_POST['new_domain'])){
     if ( $result3->num_rows < 1) {
         $sql4 = 'INSERT INTO domains (name,status,date) VALUES ("'.$_POST['new_domain'].'",0,current_timestamp)';
         $result4 = mysqli_query($conn, $sql4);
-        header("Refresh:0; url=dashboard.php");
+        header("Refresh:0; url=/");
     }
 
 }

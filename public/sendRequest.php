@@ -24,7 +24,7 @@ if ($conn->connect_error) {
 
         if ($row = $result->fetch_assoc()) {
 
-            $domain = $row['name'];
+            $domain = trim($row['name']);
             $status = '1';
             $subDomain = explode('.' , $domain);
 
